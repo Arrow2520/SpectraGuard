@@ -1,0 +1,11 @@
+# Environments
+.venv/
+__pycache__/
+
+# Large Executables (Teammates should download these manually)
+*.exe
+
+# Optional: Ignore massive audio/video test files (keep one or two small .wav files for testing)
+*.mp4
+*.mp3
+1_en_Hello__I_am_trying_to_test_out_Spectra_Guard_AI_using_voice_cloning_.wav
