@@ -11,3 +11,8 @@ __pycache__/
 1_en_Hello__I_am_trying_to_test_out_Spectra_Guard_AI_using_voice_cloning_.wav
 
 SpectraGuard_VGG19_Model.keras
+
+MFCC_AD.ipynb
+Test Audio files/
+test.py
+test_denoise.py
