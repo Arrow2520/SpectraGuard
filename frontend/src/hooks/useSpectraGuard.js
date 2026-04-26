@@ -39,6 +39,7 @@ export function useSpectraGuard() {
       if (data.spectrogram) {
         setSpectrogramData(data.spectrogram);
       }
+      setWsStatus(prev => prev.includes("Analyzing File") ? "Analyzed ✅" : prev);
     };
     
     ws.onclose = () => {
@@ -84,18 +85,42 @@ export function useSpectraGuard() {
 
   const uploadAudioFile = (file) => {
     if (!file) return;
-    initWebSocket(() => {
+    
+    // Force a fresh WebSocket connection for file uploads so the backend buffer is empty
+    if (wsRef.current) {
+      wsRef.current.close();
+    }
+    
+    setWsStatus("Connecting...");
+    const ws = new WebSocket("ws://localhost:8000/ws/audio");
+    
+    ws.onopen = () => {
       setWsStatus("Analyzing File... 🟢");
       setStatus("Processing...");
       const reader = new FileReader();
       reader.onload = (e) => {
-        if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
-          lastChunkTimeRef.current = performance.now();
-          wsRef.current.send(e.target.result);
-        }
+        lastChunkTimeRef.current = performance.now();
+        ws.send(e.target.result);
       };
       reader.readAsArrayBuffer(file);
-    });
+    };
+    
+    ws.onmessage = (event) => {
+      if (lastChunkTimeRef.current) {
+        setProcessingTime(Math.round(performance.now() - lastChunkTimeRef.current));
+      }
+      const data = JSON.parse(event.data);
+      setStatus(data.status);
+      setConfidence(data.confidence);
+      setIsFake(data.is_fake);
+      if (data.spectrogram) {
+        setSpectrogramData(data.spectrogram);
+      }
+      setWsStatus("Analyzed ✅");
+      ws.close();
+    };
+    
+    wsRef.current = ws;
   };
 
   // Cleanup on unmount

@@ -1,13 +1,13 @@
 :root {
   --font-hero: 'Crimson Text', serif;
   --font-body: 'DM Sans', sans-serif;
-  
+
   --bg-color: #ffffff;
-  --hero-bg: #7CC8F8;
+  --hero-bg: #FFF45E;
   --text-main: #000000;
   --text-muted: #5f6368;
   --border-color: #e0e0e0;
-  
+
   --primary: #1a73e8;
   --danger: #ea4335;
   --success: #34a853;
@@ -33,4 +33,8 @@ body {
 
 button {
   font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-hero);
 }

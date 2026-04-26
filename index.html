@@ -1,42 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SpectraGuard | Agent Dashboard</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; padding-top: 50px; }
-        .dashboard { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); width: 450px; text-align: center; }
-        h2 { color: #1a73e8; margin-bottom: 5px; }
-        .status-bar { color: #5f6368; margin-bottom: 20px; font-size: 14px; }
-        
-        button { padding: 10px 20px; font-size: 15px; font-weight: bold; border: none; border-radius: 6px; cursor: pointer; transition: 0.2s; margin: 5px; }
-        #start-btn { background-color: #1a73e8; color: white; }
-        #start-btn:hover { background-color: #1557b0; }
-        #stop-btn { background-color: #ea4335; color: white; }
-        #stop-btn:hover { background-color: #c5221f; }
-        #upload-btn { background-color: #34a853; color: white; width: 90%; margin-top: 15px;}
-        #upload-btn:hover { background-color: #2b8c46; }
-        button:disabled { background-color: #cccccc; cursor: not-allowed; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            padding-top: 50px;
+        }
 
-        .alert-box { margin-top: 15px; padding: 20px; border-radius: 8px; font-size: 22px; font-weight: bold; display: none; }
-        .safe { background-color: #e6f4ea; color: #137333; border: 2px solid #137333; }
-        .danger { background-color: #fce8e6; color: #c5221f; border: 3px solid #c5221f; animation: blink 0.8s infinite alternate; }
-        @keyframes blink { from { box-shadow: 0 0 10px #ea4335; } to { box-shadow: 0 0 30px #ea4335, inset 0 0 15px #ea4335; } }
-        
-        #confidence { font-size: 18px; margin-top: 10px; color: #3c4043; font-weight: bold;}
-        .divider { margin: 20px 0; border-top: 1px solid #ddd; }
-        
+        .dashboard {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            width: 450px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #1a73e8;
+            margin-bottom: 5px;
+        }
+
+        .status-bar {
+            color: #5f6368;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 15px;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+            margin: 5px;
+        }
+
+        #start-btn {
+            background-color: #1a73e8;
+            color: white;
+        }
+
+        #start-btn:hover {
+            background-color: #1557b0;
+        }
+
+        #stop-btn {
+            background-color: #ea4335;
+            color: white;
+        }
+
+        #stop-btn:hover {
+            background-color: #c5221f;
+        }
+
+        #upload-btn {
+            background-color: #34a853;
+            color: white;
+            width: 90%;
+            margin-top: 15px;
+        }
+
+        #upload-btn:hover {
+            background-color: #2b8c46;
+        }
+
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        .alert-box {
+            margin-top: 15px;
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 22px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .safe {
+            background-color: #e6f4ea;
+            color: #137333;
+            border: 2px solid #137333;
+        }
+
+        .danger {
+            background-color: #fce8e6;
+            color: #c5221f;
+            border: 3px solid #c5221f;
+            animation: blink 0.8s infinite alternate;
+        }
+
+        @keyframes blink {
+            from {
+                box-shadow: 0 0 10px #ea4335;
+            }
+
+            to {
+                box-shadow: 0 0 30px #ea4335, inset 0 0 15px #ea4335;
+            }
+        }
+
+        #confidence {
+            font-size: 18px;
+            margin-top: 10px;
+            color: #3c4043;
+            font-weight: bold;
+        }
+
+        .divider {
+            margin: 20px 0;
+            border-top: 1px solid #ddd;
+        }
+
         /* New Spectrogram Visualizer */
-        #spectrogram-view { width: 100%; border-radius: 8px; display: none; margin-top: 20px; border: 2px solid #ddd; box-shadow: 0 4px 8px rgba(0,0,0,0.1);}
-        .spec-label { font-size: 12px; color: #5f6368; margin-top: 5px; display: none; text-transform: uppercase; font-weight: bold;}
+        #spectrogram-view {
+            width: 100%;
+            border-radius: 8px;
+            display: none;
+            margin-top: 20px;
+            border: 2px solid #ddd;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .spec-label {
+            font-size: 12px;
+            color: #5f6368;
+            margin-top: 5px;
+            display: none;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
     </style>
 </head>
+
 <body>
 
     <div class="dashboard">
-        <h2>🛡️ SpectraGuard</h2>
-        <div class="status-bar">Server Status: <span id="ws-status" style="color: orange; font-weight: bold;">Waiting...</span></div>
+        <h2 style="font-family: 'Roboto Flex', sans-serif;"> SpectraGuard </h2>
+        <div class="status-bar">Server Status: <span id="ws-status"
+                style="color: orange; font-weight: bold;">Waiting...</span></div>
 
         <div>
             <button id="start-btn">🎙️ Start Live Call</button>
@@ -65,15 +178,15 @@
         function initWebSocket(onReady) {
             if (ws && ws.readyState === WebSocket.OPEN) { onReady(); return; }
             ws = new WebSocket("ws://localhost:8000/ws/audio");
-            
+
             ws.onopen = () => {
                 document.getElementById("ws-status").innerHTML = '<span style="color: green;">Online 🟢</span>';
                 onReady();
             };
-            
+
             ws.onmessage = (event) => {
                 const data = JSON.parse(event.data);
-                
+
                 // 1. Update the Text UI
                 const alertBox = document.getElementById("alert-box");
                 const confText = document.getElementById("confidence");
@@ -91,7 +204,7 @@
                     specLabel.style.display = "block";
                 }
             };
-            
+
             ws.onclose = () => document.getElementById("ws-status").innerHTML = '<span style="color: orange; font-weight: bold;">Waiting...</span>';
         }
 
@@ -135,4 +248,5 @@
         };
     </script>
 </body>
+
 </html>
