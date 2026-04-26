@@ -1,0 +1,36 @@
+:root {
+  --font-hero: 'Crimson Text', serif;
+  --font-body: 'DM Sans', sans-serif;
+  
+  --bg-color: #ffffff;
+  --hero-bg: #7CC8F8;
+  --text-main: #000000;
+  --text-muted: #5f6368;
+  --border-color: #e0e0e0;
+  
+  --primary: #1a73e8;
+  --danger: #ea4335;
+  --success: #34a853;
+  --safe-bg: #e6f4ea;
+  --danger-bg: #fce8e6;
+  --danger-text: #c5221f;
+  --safe-text: #137333;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  font-family: var(--font-body);
+}

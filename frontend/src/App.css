@@ -1,0 +1,10 @@
+/* App-specific styles if any, mostly using global and component styles */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}

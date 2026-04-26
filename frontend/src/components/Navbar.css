@@ -1,0 +1,38 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 4rem;
+  background-color: var(--bg-color);
+}
+
+.navbar-logo span {
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: var(--text-main);
+}
+
+.navbar-links {
+  display: flex;
+  list-style: none;
+  gap: 3rem;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  color: var(--text-main);
+  font-size: 1rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.navbar-links a:hover {
+  color: var(--primary);
+}
+
+.navbar-profile .profile-placeholder {
+  width: 40px;
+  height: 40px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+}
