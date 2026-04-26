@@ -74,7 +74,9 @@ uvicorn main:app --reload
 ### Terminal 2: Start the Frontend Server
 
 ```bash
-python -m http.server 8080
+cd frontend 
+npm install 
+npm run dev
 ```
 
 Open your browser and go to:
@@ -89,7 +91,7 @@ http://localhost:8080
 
 To ensure accurate detection, avoid the following common pitfalls:
 
-### ❌ Do NOT:
+### ❌ Do NOT
 
 - Play deepfake audio through a physical speaker into your microphone  
   → This introduces real-world acoustic effects ("analog wash"), making fake audio appear real.
@@ -97,7 +99,7 @@ To ensure accurate detection, avoid the following common pitfalls:
 - Use `.mp3` or `.mp4` files  
   → Lossy compression removes critical spectral artifacts needed for detection.
 
-### ✅ Recommended Testing Method:
+### ✅ Recommended Testing Method
 
 - Use the **"Test Audio File"** feature  
 - Upload clean, uncompressed `.wav` files  
@@ -125,3 +127,4 @@ To ensure accurate detection, avoid the following common pitfalls:
 SpectraGuard focuses on **physical signal inconsistencies rather than linguistic content**, making it resilient against increasingly sophisticated AI voice cloning systems.
 
 It is designed to operate in **real-time**, scale across financial infrastructure, and provide **interpretable forensic signals** for high-stakes environments.
+
